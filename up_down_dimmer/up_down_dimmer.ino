@@ -8,40 +8,24 @@ int downVal;
 
 void setup() 
 {
-  pinMode(ledPin, OUTPUT);
-  //upVal = 0;
-  //downVal = 0;
+  pinMode(ledPin, OUTPUT);  
 }
 
 void loop() 
 {
   signed int diff;
   int dimmerVal;
-  int outVal;
-    
-  //auto fade
-  /*if(upVal < 1023 && downVal == 0){
-    upVal++;
-  }
-  else if(upVal == 1023 && downVal < 1023){
-    downVal++;
-  }
-  else if(upVal <= 1023 && upVal > 0 && downVal == 1023){
-    upVal--;
-  }
-  else if(upVal == 0 && downVal <= 1023 && downVal > 0){
-    downVal--;
-  }*/
+  int outVal;   
 
-  upVal = analogRead(inputUp);
-  downVal = analogRead(inputDown);
+  upVal = map(analogRead(inputUp), 0, 1023, 1023, 0);//flip to match pot dimmers
+  downVal = map(analogRead(inputDown), 0, 1023, 1023, 0);
   
   diff = upVal - downVal;//range -1023 to +1023
   delay(1);
 
-  dimmerVal = map(diff, -1023, 1023, -200, 255);//'halfway' point fairly dim; makes increase more visible //flipped to match pot dimmers
+  dimmerVal = map(diff, -1023, 1023, -200, 255);//'halfway' point fairly dim; makes increase more visible
   analogWrite(ledPin, dimmerVal);
 
-  outVal = map(diff, -1023, 1023, 0, 1023);//output as another pot //flipped
+  outVal = map(diff, -1023, 1023, 0, 1023);//output as another pot
   analogWrite(outPin, outVal);
 }
