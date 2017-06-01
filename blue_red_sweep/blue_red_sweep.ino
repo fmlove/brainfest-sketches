@@ -1,5 +1,5 @@
-int inputUp = 3;
-int inputDown = 4;
+int inputUp = A3;
+int inputDown = A2;
 
 int redPin = 1;
 int bluePin = 0;

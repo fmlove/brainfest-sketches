@@ -1,8 +1,8 @@
-int inputUp = 0;
-int inputDown = 2;
+int inputUp = A3;
+int inputDown = A2;
 
-int redPin = 9;
-int bluePin = 10;
+int redPin = 1;
+int bluePin = 0;
 //connect green to ground
 
 //int outPin = 11;
