@@ -26,8 +26,19 @@ void loop()
   upVal = analogRead(inputUp);
   downVal = analogRead(inputDown);
   
-  /*outVal = map(diff, -1023, 1023, 0, 1023);//output as another pot
-  analogWrite(outPin, outVal);*/
+  if(upVal < 20){
+      upVal = 20 - downVal;
+      if (upVal < 0){
+          upVal = 0;
+        }
+    }
+
+  if(downVal < 20){
+      downVal = 20 - upVal;
+      if (downVal < 0){
+          downVal = 0;
+        }
+    }
 
   blueOut = map(upVal, 0, 1023, 0, 255);
   redOut = map(downVal, 0, 1023, 0, 255);
