@@ -23,25 +23,25 @@ void loop()
   int blueOut;
   int redOut;     
 
-  upVal = analogRead(inputUp);
-  downVal = analogRead(inputDown);
+  upVal = pulseIn(inputUp, HIGH, 50000);;
+  downVal = pulseIn(inputDown, HIGH, 50000);;
 
   if(upVal < 20){
-      upVal = 20 - downVal;
+      upVal = 2000 - downVal;
       if (upVal < 0){
           upVal = 0;
         }
     }
 
   if(downVal < 20){
-      downVal = 20 - upVal;
+      downVal = 2000 - upVal;
       if (downVal < 0){
           downVal = 0;
         }
     }
 
-  blueOut = map(downVal, 0, 1023, 0, 255);
-  redOut = map(upVal, 0, 1023, 0, 255);
+  blueOut = map(downVal, 0, 20000, 0, 254);
+  redOut = map(upVal, 0, 20000, 0, 254);
 
   analogWrite(bluePin, blueOut);
   analogWrite(redPin, redOut);

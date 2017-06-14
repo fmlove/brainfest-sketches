@@ -13,7 +13,10 @@ void loop() // this function runs repeatedly after setup() finishes
   int outValue;
   
   sensorValue = analogRead(sensorPin);    
-  outValue = map(sensorValue, 0, 1023, 255, 0);//reversed for intuitiveness
+  outValue = map(sensorValue, 0, 1023, 254, 0);//reversed for intuitiveness
   analogWrite(ledPin, outValue);
   analogWrite(outPin, outValue);
+  /*digitalWrite(outPin, HIGH);
+  delay(map(sensorValue, 0, 1023, 250, 1));
+  digitalWrite(outPin, LOW);*/
 }

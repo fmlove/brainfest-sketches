@@ -16,13 +16,13 @@ void loop()
   int diff;
   int dimmerVal;
 
-  upVal = analogRead(inputUp);//0 to 1023
-  downVal = analogRead(inputDown);
+  upVal = pulseIn(inputUp, HIGH, 50000);//100 to 16000ish with PWM output running on battery pack; 0 if timeout
+  downVal = pulseIn(inputDown, HIGH, 50000);
 
-  diff = upVal - downVal;//range -1023 to +1023
-  if(diff < -50){diff = -50;}
+  diff = upVal - downVal;//range -16000 to +16000
+  if(diff < -6500){diff = -6500;}
   
-  dimmerVal = map(diff, -50, 1023, 0, 255);//'halfway' point dim; makes increase more visible
+  dimmerVal = map(diff, -6500, 20000, 0, 254);//'halfway' point dim; makes increase more visible
   analogWrite(ledPin, dimmerVal);
 
   analogWrite(outPin, dimmerVal);
