@@ -23,14 +23,15 @@ void loop()
   diff = upVal - downVal;//range -16000 to +16000
   if(diff < 0){
     if(diff < -15000){ diff = -15000; }//make sure LED turns off when 'down' input is near max
-    dimmerVal = map(diff, -15000, 0, 0, 40);
+    dimmerVal = map(diff, -15000, 0, 0, 15);
   }
   else{
-    dimmerVal = map(diff, 0, 20000, 40, 254);
+    dimmerVal = map(diff, 0, 20000, 15, 254);
   }
   
-  outVal = map(diff, -20000, 20000, 0, 254);//baseline output so colour sweeps can distinguish between no connection and low signal
+  //outVal = map(diff, -20000, 20000, 0, 254);
   
   analogWrite(ledPin, dimmerVal);
-  analogWrite(outPin, outVal);
+  //analogWrite(outPin, outVal);
+  analogWrite(outPin, dimmerVal);
 }
