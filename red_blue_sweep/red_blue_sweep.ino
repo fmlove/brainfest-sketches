@@ -9,6 +9,9 @@ int bluePin = 0;
 
 int upVal;
 int downVal;
+int blueOut;
+int redOut; 
+
 
 void setup() 
 {
@@ -20,28 +23,31 @@ void setup()
 
 void loop() 
 {  
-  int blueOut;
-  int redOut;     
-
-  upVal = analogRead(inputUp);
-  downVal = analogRead(inputDown);
+  upVal = pulseIn(inputUp, HIGH, 50000);
+  downVal = pulseIn(inputDown, HIGH, 50000);
+  upVal = constrain(upVal, 100, 20000);
+  downVal = constrain(downVal, 100, 20000);
   
-  if(upVal < 20){
-      upVal = 20 - downVal;
-      if (upVal < 0){
-          upVal = 0;
-        }
-    }
-
-  if(downVal < 20){
-      downVal = 20 - upVal;
-      if (downVal < 0){
-          downVal = 0;
-        }
-    }
-
-  blueOut = map(upVal, 0, 1023, 0, 255);
-  redOut = map(downVal, 0, 1023, 0, 255);
+  if(downVal > 12000){//adjust upVal condition?
+    int diff = downVal - 12000;
+    blueOut = upVal - diff;
+    redOut = downVal;
+  }
+  else if(upVal > 12000){
+    int diff = upVal - 12000;
+    redOut = downVal - diff;
+    blueOut = upVal;
+  }
+  else{
+    redOut = downVal;
+    blueOut = upVal;
+  }
+  
+  blueOut = constrain(blueOut, 0, 20000);
+  redOut = constrain(redOut, 0, 20000);
+  
+  blueOut = map(blueOut, 0, 20000, 0, 254);
+  redOut = map(redOut, 0, 20000, 0, 254);
 
   analogWrite(bluePin, blueOut);
   analogWrite(redPin, redOut);
